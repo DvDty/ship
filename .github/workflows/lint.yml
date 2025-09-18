@@ -24,35 +24,34 @@ jobs:
         with:
           php-version: '8.4'
 
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache Composer Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-cache-${{ hashFiles('**/composer.lock') }}
-          restore-keys: composer-cache-
-
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
-
-      - name: Cache Npm Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: npm-cache-
+#      - name: Get Composer Cache Directory
+#        id: composer-cache
+#        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+#
+#      - name: Cache Composer Dependencies
+#        uses: actions/cache@v4
+#        with:
+#          path: ${{ steps.composer-cache.outputs.dir }}
+#          key: composer-cache-${{ hashFiles('**/composer.lock') }}
+#          restore-keys: composer-cache-
+#
+#      - name: Get npm cache directory
+#        id: npm-cache-dir
+#        shell: bash
+#        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+#
+#      - name: Cache Npm Dependencies
+#        uses: actions/cache@v4
+#        with:
+#          path: ${{ steps.npm-cache-dir.outputs.dir }}
+#          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: npm-cache-
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 
       - name: Install Dependencies
         run: npm install
-
 
       - name: Run Pint
         run: vendor/bin/pint
