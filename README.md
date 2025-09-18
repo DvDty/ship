@@ -16,5 +16,3 @@ Would you like to run npm install and npm run build? - Yes
 cd ship
 composer run dev
 ```
-
-Test cache.
